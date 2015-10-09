@@ -1,4 +1,4 @@
-# UnitTestingHW
+# Unit Testing Homework [![Build Status](https://travis-ci.org/jbytw/UnitTestingHW.svg?branch=master)](https://travis-ci.org/jbytw/UnitTestingHW)
 Trend University AD1006 UnitTesting Homework
 
 ## Homework 1 Requirements
