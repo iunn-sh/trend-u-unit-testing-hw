@@ -1,7 +1,9 @@
-package homework.week1;
+package homework.week1to4;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import homework.week1to4.RollCall;
+import homework.week1to4.Student;
 
 import java.io.File;
 import java.io.FileWriter;

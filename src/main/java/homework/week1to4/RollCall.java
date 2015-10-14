@@ -1,4 +1,4 @@
-package homework.week1;
+package homework.week1to4;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
