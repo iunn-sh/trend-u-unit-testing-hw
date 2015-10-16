@@ -12,3 +12,9 @@ Trend University AD1006 UnitTesting Homework
   * file format
   * count of attendance each week
   * list attendended student each week
+
+## Homework 2 Requirement
+
+* random student presentation sequence
+* presenter on week 7 should not be on week 8 (each student present once)
+* test [random] output
