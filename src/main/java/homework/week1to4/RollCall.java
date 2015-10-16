@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -52,6 +54,30 @@ public class RollCall
 		}
 		System.out.println("Week8: " + listStudentWeek8.size() + " people");
 		
+		System.out.println(StringUtils.repeat("-", 60));
+		
+		List<Student> listStudentWeek7Week8 = rollCall.GetWeek7Week8List(listStudent);
+		for (Student student : listStudentWeek7Week8)
+		{
+			System.out.println("Student [id=" + student.getId() 
+			                    + ", isWeek7=" + student.getIsWeek7() 
+			                    + ", isWeek8=" + student.getIsWeek8() 
+			                    + "]");
+		}
+		System.out.println("Week7 & Week8: " + listStudentWeek7Week8.size() + " people");
+		
+		System.out.println(StringUtils.repeat("-", 60));
+		
+		Random random = new Random(1L);
+		List<Student> listSequenceStudent = rollCall.GetRandomPresentationSequence(listStudent, random);
+		for (Student student : listSequenceStudent)
+		{
+			System.out.println("Student [id=" + student.getId() 
+			                    + ", isWeek7=" + student.getIsWeek7() 
+			                    + ", isWeek8=" + student.getIsWeek8() 
+			                    + "]");
+		}
+		System.out.println("Total Presenter: " + listSequenceStudent.size() + " people");
 	}
 	
 	// http://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
@@ -140,6 +166,37 @@ public class RollCall
 		}
 		
 		return listStudentWeek8;
+	}
+	
+	public List<Student> GetWeek7Week8List(List<Student> listStudent)
+	{
+		List<Student> listStudentWeek7Week8 = new ArrayList<Student>();
+		
+		for (Student student : listStudent)
+		{
+			if (student.getIsWeek7() == 1 && student.getIsWeek8() == 1)
+			{
+				listStudentWeek7Week8.add(student);
+			}
+		}
+		
+		return listStudentWeek7Week8;
+	}
+	
+	public List<Student> GetRandomPresentationSequence(List<Student> listStudent, Random random)
+	{
+		List<Student> listSequenceStudent = new ArrayList<Student>();
+		
+		List<Student> listStudentWeek7 = GetWeek7List(listStudent);
+		List<Student> listStudentWeek8 = GetWeek8List(listStudent);
+		
+		
+		listSequenceStudent = listStudent;
+		Collections.shuffle(listSequenceStudent, random);
+		
+		
+		
+		return listSequenceStudent;
 	}
 	
 }

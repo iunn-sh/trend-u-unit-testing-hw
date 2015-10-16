@@ -103,25 +103,25 @@ public class RollCallTest
 		file.delete();
 	}
 	
-	@Test
-	public void Count_StudentIsWeek7_Return3()
-	{
-		List<Student> listStudent = GetListStudentValid();
-		
-		int week7Count = (rollCall.GetWeek7List(listStudent)).size();
-		
-		assertEquals(3, week7Count);
-	}
-	
-	@Test
-	public void Count_StudentIsWeek8_Return2()
-	{
-		List<Student> listStudent = GetListStudentValid();
-		
-		int week8Count = (rollCall.GetWeek8List(listStudent)).size();
-		
-		assertEquals(2, week8Count);
-	}
+//	@Test
+//	public void Count_StudentIsWeek7_Return3()
+//	{
+//		List<Student> listStudent = GetListStudentValid();
+//		
+//		int week7Count = (rollCall.GetWeek7List(listStudent)).size();
+//		
+//		assertEquals(3, week7Count);
+//	}
+//	
+//	@Test
+//	public void Count_StudentIsWeek8_Return2()
+//	{
+//		List<Student> listStudent = GetListStudentValid();
+//		
+//		int week8Count = (rollCall.GetWeek8List(listStudent)).size();
+//		
+//		assertEquals(2, week8Count);
+//	}
 	
 	@Test
 	public void List_StudentIsWeek7_ReturnList()
@@ -152,6 +152,18 @@ public class RollCallTest
 		assertEquals(expectedListStudentIsWeek8, testLeistStudentIsWeek8);
 	}
 	
+	@Test
+	public void List_StudentIsWeek7Week8_ReturnList()
+	{
+		List<Student> listStudent = GetListStudentValid();
+
+		List<Student> expectedListStudentIsWeek7Week8 = new ArrayList<Student>();
+		expectedListStudentIsWeek7Week8.add(new Student(27765, 1, 1));
+		
+		List<Student> testLeistStudentIsWeek7Week8 = rollCall.GetWeek7Week8List(listStudent);
+
+		assertEquals(expectedListStudentIsWeek7Week8, testLeistStudentIsWeek7Week8);
+	}
 	
 	public Student GetStudentValid()
 	{
