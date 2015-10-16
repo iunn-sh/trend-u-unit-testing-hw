@@ -217,27 +217,44 @@ public class RollCall
 		List<Student> listSequenceStudent = GetWeek7OrWeek8List(listStudent);
 		int studentCount = listSequenceStudent.size();
 		
-		// shuffle regardless of isWeek7 or isWeek8
-		Collections.shuffle(listSequenceStudent, random);
+		List<Student> listSequenceStudentWeek7 = new ArrayList<Student>();
+		List<Student> listSequenceStudentWeek8 = new ArrayList<Student>();
 		
-		// move students not absent on week 8 to the front of the list 
 		for (int i = 0; i < studentCount; i++)
 		{	
-			if (listSequenceStudent.get(i).getIsWeek8() != 1)
+			int next = random.nextInt(listSequenceStudent.size());
+			if (listSequenceStudent.get(next).getIsWeek7() == 1 && 
+					listSequenceStudent.get(next).getIsWeek8() != 1)
 			{
-				listSequenceStudent.add(0, listSequenceStudent.remove(i));
+				listSequenceStudentWeek7.add(
+						listSequenceStudent.get(next));
+				
 			}
+			else if (listSequenceStudent.get(next).getIsWeek7() != 1 && 
+					listSequenceStudent.get(next).getIsWeek8() == 1)
+			{
+				listSequenceStudentWeek8.add(
+						listSequenceStudent.get(next));
+			}
+			else
+			{
+				if ((next % 2) == 0)
+				{
+					listSequenceStudentWeek7.add(
+							listSequenceStudent.get(next));
+				}
+				else
+				{
+					listSequenceStudentWeek8.add(
+							listSequenceStudent.get(next));
+				}
+			}
+			
+			listSequenceStudent.remove(next);
 		}
 		
-		// move students (on the first half) not absent on week 7 to the back of the list 
-		for (int i = 0; i < (studentCount*0.5); i++)
-		{	
-			if (listSequenceStudent.get(i).getIsWeek7() != 1)
-			{
-				listSequenceStudent.add(listSequenceStudent.remove(i));
-				i--;
-			}
-		}
+		listSequenceStudent.addAll(listSequenceStudentWeek7);
+		listSequenceStudent.addAll(listSequenceStudentWeek8);
 		
 		return listSequenceStudent;
 	}
