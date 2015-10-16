@@ -10,6 +10,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import org.junit.After;
 import org.junit.Before;
@@ -153,16 +154,49 @@ public class RollCallTest
 	}
 	
 	@Test
-	public void List_StudentIsWeek7Week8_ReturnList()
+	public void List_StudentIsWeek7AndWeek8_ReturnList()
 	{
 		List<Student> listStudent = GetListStudentValid();
 
-		List<Student> expectedListStudentIsWeek7Week8 = new ArrayList<Student>();
-		expectedListStudentIsWeek7Week8.add(new Student(27765, 1, 1));
+		List<Student> expectedListStudentIsWeek7AndWeek8 = new ArrayList<Student>();
+		expectedListStudentIsWeek7AndWeek8.add(new Student(27765, 1, 1));
 		
-		List<Student> testLeistStudentIsWeek7Week8 = rollCall.GetWeek7Week8List(listStudent);
+		List<Student> testLeistStudentIsWeek7AndWeek8 = rollCall.GetWeek7AndWeek8List(listStudent);
 
-		assertEquals(expectedListStudentIsWeek7Week8, testLeistStudentIsWeek7Week8);
+		assertEquals(expectedListStudentIsWeek7AndWeek8, testLeistStudentIsWeek7AndWeek8);
+	}
+	
+	@Test
+	public void List_StudentIsWeek7OrWeek8_ReturnList()
+	{
+		List<Student> listStudent = GetListStudentValid();
+
+		List<Student> expectedListStudentIsWeek7OrWeek8 = new ArrayList<Student>();
+		expectedListStudentIsWeek7OrWeek8.add(new Student(27765, 1, 1));
+		expectedListStudentIsWeek7OrWeek8.add(new Student(22222, 1, 0));
+		expectedListStudentIsWeek7OrWeek8.add(new Student(33333, 0, 1));
+		expectedListStudentIsWeek7OrWeek8.add(new Student(44444, 1, 0));
+		
+		List<Student> testListStudentIsWeek7OrWeek8 = rollCall.GetWeek7OrWeek8List(listStudent);
+
+		assertEquals(expectedListStudentIsWeek7OrWeek8, testListStudentIsWeek7OrWeek8);
+	}
+	
+	@Test
+	public void Random_RandomPresentationSequence_ReturnList()
+	{
+		List<Student> listStudent = GetListStudentValid();
+		
+		List<Student> expectedListStudentPresentSequence = new ArrayList<Student>();
+		expectedListStudentPresentSequence.add(new Student(22222, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(44444, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(27765, 1, 1));
+		expectedListStudentPresentSequence.add(new Student(33333, 0, 1));
+		
+		List<Student> testListStudentPresentSequence = 
+				rollCall.GetRandomPresentationSequence(listStudent, new Random(1L));
+		
+		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
 	}
 	
 	public Student GetStudentValid()
