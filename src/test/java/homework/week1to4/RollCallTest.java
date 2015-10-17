@@ -105,7 +105,28 @@ public class RollCallTest
 	}
 	
 	@Test
-	public void List_StudentIsWeek7_ReturnList()
+	public void Logic_UniqueStudentList_returnTrue()
+	{
+		List<Student> listStudent = GetListStudentValid();
+		
+		boolean unique = rollCall.CheckUniqueStudentList(listStudent);
+		
+		assertEquals(true, unique);
+	}
+	
+	@Test
+	public void Logic_NotUniqueStudentList_returnFalse()
+	{
+		List<Student> listStudent = GetListStudentValid();
+		listStudent.add(listStudent.get(0));
+		
+		boolean unique = rollCall.CheckUniqueStudentList(listStudent);
+		
+		assertEquals(false, unique);
+	}
+	
+	@Test
+	public void List_GetStudentIsWeek7_ReturnList()
 	{
 		List<Student> listStudent = GetListStudentValid();
 
@@ -120,7 +141,7 @@ public class RollCallTest
 	}
 	
 	@Test
-	public void List_StudentIsWeek8_ReturnList()
+	public void List_GetStudentIsWeek8_ReturnList()
 	{
 		List<Student> listStudent = GetListStudentValid();
 
@@ -134,7 +155,7 @@ public class RollCallTest
 	}
 	
 	@Test
-	public void List_StudentIsWeek7AndWeek8_ReturnList()
+	public void List_GetStudentIsWeek7AndWeek8_ReturnList()
 	{
 		List<Student> listStudent = GetListStudentValid();
 
@@ -147,7 +168,7 @@ public class RollCallTest
 	}
 	
 	@Test
-	public void List_StudentIsWeek7OrWeek8_ReturnList()
+	public void List_GetStudentIsWeek7OrWeek8_ReturnList()
 	{
 		List<Student> listStudent = GetListStudentValid();
 
@@ -163,7 +184,7 @@ public class RollCallTest
 	}
 	
 	@Test
-	public void Random_RandomPresentationSequence_ReturnList()
+	public void Random_GetRandomPresentationSequence_ReturnList()
 	{
 		List<Student> listStudent = GetListStudentValid();
 		
@@ -178,6 +199,7 @@ public class RollCallTest
 		
 		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
 	}
+	
 	
 	public Student GetStudentValid()
 	{

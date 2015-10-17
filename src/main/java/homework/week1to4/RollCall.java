@@ -5,93 +5,96 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 
 
 public class RollCall 
 {
-//	public static void main(String[] args) 
-//	{
-//		RollCall rollCall = new RollCall();
-//		List<Student> listStudent = rollCall.LoadCsvToStudent("src/main/resources/Week1HW_sample.csv");
-//		
-//		for (Student student : listStudent)
-//		{
-//			boolean isValid = rollCall.CheckStudentFormat(student);
-//			
-//			System.out.println("Student [id=" + student.getId() 
-//			                    + ", isWeek7=" + student.getIsWeek7() 
-//			                    + ", isWeek8=" + student.getIsWeek8() 
-//			                    + "]"
-//			                    + " isValid=" + isValid);
-//		}
-//		System.out.println("Total: " + listStudent.size() + " people");
-//		
-//		System.out.println(StringUtils.repeat("-", 60));
-//		
-//		List<Student> listStudentWeek7 = rollCall.GetWeek7List(listStudent);
-//		for (Student student : listStudentWeek7)
-//		{
-//			System.out.println("Student [id=" + student.getId() 
-//			                    + ", isWeek7=" + student.getIsWeek7() 
-//			                    + ", isWeek8=" + student.getIsWeek8() 
-//			                    + "]");
-//		}
-//		System.out.println("Week7: " + listStudentWeek7.size() + " people");
-//		
-//		System.out.println(StringUtils.repeat("-", 60));
-//		
-//		List<Student> listStudentWeek8 = rollCall.GetWeek8List(listStudent);
-//		for (Student student : listStudentWeek8)
-//		{
-//			System.out.println("Student [id=" + student.getId() 
-//			                    + ", isWeek7=" + student.getIsWeek7() 
-//			                    + ", isWeek8=" + student.getIsWeek8() 
-//			                    + "]");
-//		}
-//		System.out.println("Week8: " + listStudentWeek8.size() + " people");
-//		
-//		System.out.println(StringUtils.repeat("-", 60));
-//		
-//		List<Student> listStudentWeek7AndWeek8 = rollCall.GetWeek7AndWeek8List(listStudent);
-//		for (Student student : listStudentWeek7AndWeek8)
-//		{
-//			System.out.println("Student [id=" + student.getId() 
-//			                    + ", isWeek7=" + student.getIsWeek7() 
-//			                    + ", isWeek8=" + student.getIsWeek8() 
-//			                    + "]");
-//		}
-//		System.out.println("Week7 & Week8: " + listStudentWeek7AndWeek8.size() + " people");
-//		
-//		System.out.println(StringUtils.repeat("-", 60));
-//		
-//		List<Student> listStudentWeek7OrWeek8 = rollCall.GetWeek7OrWeek8List(listStudent);
-//		for (Student student : listStudentWeek7OrWeek8)
-//		{
-//			System.out.println("Student [id=" + student.getId() 
-//			                    + ", isWeek7=" + student.getIsWeek7() 
-//			                    + ", isWeek8=" + student.getIsWeek8() 
-//			                    + "]");
-//		}
-//		System.out.println("Week7 or Week8: " + listStudentWeek7OrWeek8.size() + " people");
-//		
-//		System.out.println(StringUtils.repeat("-", 60));
-//		
-//		Random random = new Random(System.currentTimeMillis());
-//		List<Student> listSequenceStudent = 
-//				rollCall.GetRandomPresentationSequence(listStudent, random);
-//		for (Student student : listSequenceStudent)
-//		{
-//			System.out.println("Student [id=" + student.getId() 
-//			                    + ", isWeek7=" + student.getIsWeek7() 
-//			                    + ", isWeek8=" + student.getIsWeek8() 
-//			                    + "]");
-//		}
-//		System.out.println("Total Presenter: " + listSequenceStudent.size() + " people");
-//	}
+	public static void main(String[] args) 
+	{
+		RollCall rollCall = new RollCall();
+		List<Student> listStudent = rollCall.LoadCsvToStudent("src/main/resources/Week1HW_sample.csv");
+		
+		for (Student student : listStudent)
+		{
+			boolean isValid = rollCall.CheckStudentFormat(student);
+			
+			System.out.println("Student [id=" + student.getId() 
+			                    + ", isWeek7=" + student.getIsWeek7() 
+			                    + ", isWeek8=" + student.getIsWeek8() 
+			                    + "]"
+			                    + " isValid=" + isValid);
+		}
+		System.out.println("Total: " + listStudent.size() + " people");
+		System.out.println("isUniqueStudentList: " + rollCall.CheckUniqueStudentList(listStudent));
+		
+		System.out.println(StringUtils.repeat("-", 60));
+		
+		List<Student> listStudentWeek7 = rollCall.GetWeek7List(listStudent);
+		for (Student student : listStudentWeek7)
+		{
+			System.out.println("Student [id=" + student.getId() 
+			                    + ", isWeek7=" + student.getIsWeek7() 
+			                    + ", isWeek8=" + student.getIsWeek8() 
+			                    + "]");
+		}
+		System.out.println("Week7: " + listStudentWeek7.size() + " people");
+		
+		System.out.println(StringUtils.repeat("-", 60));
+		
+		List<Student> listStudentWeek8 = rollCall.GetWeek8List(listStudent);
+		for (Student student : listStudentWeek8)
+		{
+			System.out.println("Student [id=" + student.getId() 
+			                    + ", isWeek7=" + student.getIsWeek7() 
+			                    + ", isWeek8=" + student.getIsWeek8() 
+			                    + "]");
+		}
+		System.out.println("Week8: " + listStudentWeek8.size() + " people");
+		
+		System.out.println(StringUtils.repeat("-", 60));
+		
+		List<Student> listStudentWeek7AndWeek8 = rollCall.GetWeek7AndWeek8List(listStudent);
+		for (Student student : listStudentWeek7AndWeek8)
+		{
+			System.out.println("Student [id=" + student.getId() 
+			                    + ", isWeek7=" + student.getIsWeek7() 
+			                    + ", isWeek8=" + student.getIsWeek8() 
+			                    + "]");
+		}
+		System.out.println("Week7 & Week8: " + listStudentWeek7AndWeek8.size() + " people");
+		
+		System.out.println(StringUtils.repeat("-", 60));
+		
+		List<Student> listStudentWeek7OrWeek8 = rollCall.GetWeek7OrWeek8List(listStudent);
+		for (Student student : listStudentWeek7OrWeek8)
+		{
+			System.out.println("Student [id=" + student.getId() 
+			                    + ", isWeek7=" + student.getIsWeek7() 
+			                    + ", isWeek8=" + student.getIsWeek8() 
+			                    + "]");
+		}
+		System.out.println("Week7 or Week8: " + listStudentWeek7OrWeek8.size() + " people");
+		
+		System.out.println(StringUtils.repeat("-", 60));
+		
+		Random random = new Random(System.currentTimeMillis());
+		List<Student> listSequenceStudent = 
+				rollCall.GetRandomPresentationSequence(listStudent, random);
+		for (Student student : listSequenceStudent)
+		{
+			System.out.println("Student [id=" + student.getId() 
+			                    + ", isWeek7=" + student.getIsWeek7() 
+			                    + ", isWeek8=" + student.getIsWeek8() 
+			                    + "]");
+		}
+		System.out.println("Total Presenter: " + listSequenceStudent.size() + " people");
+	}
 	
 	// http://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
 	public List<Student> LoadCsvToStudent (String filePath)
@@ -147,6 +150,18 @@ public class RollCall
 		
 		if (student.getIsWeek8() > 1 || student.getIsWeek8() < 0)
 		{ return false; }
+		
+		return true;
+	}
+	
+	public boolean CheckUniqueStudentList(List<Student> listStudent)
+	{
+		Set<Student> set = new HashSet<Student>(listStudent);
+		
+		if(set.size() < listStudent.size())
+		{
+		    return false;
+		}
 		
 		return true;
 	}
