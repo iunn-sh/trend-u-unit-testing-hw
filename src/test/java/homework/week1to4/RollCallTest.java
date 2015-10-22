@@ -20,7 +20,8 @@ import org.junit.rules.ExpectedException;
 
 public class RollCallTest
 {
-	private RollCall rollCall = new RollCall();
+//	IRandom random = new RandomSeed(1L);
+//	private RollCall rollCall = new RollCall();
 	
 	@Before
 	public void SetUp() throws Exception 
@@ -30,12 +31,14 @@ public class RollCallTest
 	@After
 	public void TearDown() throws Exception 
 	{
+		RandomFactory.setRandom(null);
 	}
 	
 	
 	@Test
 	public void Format_StudentValid_ReturnTrue()
 	{
+		RollCall rollCall = new RollCall();
 		List<Student> listStudent = GetListStudentValid();
 		
 		for (Student student : listStudent)
@@ -49,6 +52,7 @@ public class RollCallTest
 	@Test
 	public void Format_StudentIdNotValid_ReturnFalse()
 	{
+		RollCall rollCall = new RollCall();
 		Student student = new Student(0, 1, 1);
 		
 		boolean valid = rollCall.CheckStudentFormat(student);
@@ -59,6 +63,7 @@ public class RollCallTest
 	@Test
 	public void Format_StudentIsWeek7NotValid_ReturnFalse()
 	{
+		RollCall rollCall = new RollCall();
 		Student student = new Student(27765, -1, 1);
 		
 		boolean valid = rollCall.CheckStudentFormat(student);
@@ -69,6 +74,7 @@ public class RollCallTest
 	@Test
 	public void Format_StudentIsWeek8NotValid_ReturnFalse()
 	{
+		RollCall rollCall = new RollCall();
 		Student student = new Student(27765, 1, -1);
 		
 		boolean valid = rollCall.CheckStudentFormat(student);
@@ -79,6 +85,7 @@ public class RollCallTest
 	@Test
 	public void Format_LoadValidCsv_returnList()
 	{
+		RollCall rollCall = new RollCall();
 		String filePath = "src/main/resources/Week1HW_TestCaseValid.csv";
 		File file = GetCsvFileStudentValid(filePath);	
 		List<Student> expectedListStudent = GetListStudentValid();
@@ -94,6 +101,7 @@ public class RollCallTest
 	@Test
 	public void Format_LoadNotValidCsv_returnException()
 	{
+		RollCall rollCall = new RollCall();
 		String filePath = "src/main/resources/Week1HW_TestCaseNotValid_NotNumber.csv";
 		File file = GetCsvFileStudentNotValid(filePath);	
 		ExpectedException expectedException = ExpectedException.none();
@@ -107,6 +115,7 @@ public class RollCallTest
 	@Test
 	public void Logic_UniqueStudentList_returnTrue()
 	{
+		RollCall rollCall = new RollCall();
 		List<Student> listStudent = GetListStudentValid();
 		
 		boolean unique = rollCall.CheckUniqueStudentList(listStudent);
@@ -117,6 +126,7 @@ public class RollCallTest
 	@Test
 	public void Logic_NotUniqueStudentList_returnFalse()
 	{
+		RollCall rollCall = new RollCall();
 		List<Student> listStudent = GetListStudentValid();
 		listStudent.add(listStudent.get(0));
 		
@@ -128,6 +138,7 @@ public class RollCallTest
 	@Test
 	public void List_GetStudentIsWeek7_ReturnList()
 	{
+		RollCall rollCall = new RollCall();
 		List<Student> listStudent = GetListStudentValid();
 
 		List<Student> expectedListStudentIsWeek7 = new ArrayList<Student>();
@@ -143,6 +154,7 @@ public class RollCallTest
 	@Test
 	public void List_GetStudentIsWeek8_ReturnList()
 	{
+		RollCall rollCall = new RollCall();
 		List<Student> listStudent = GetListStudentValid();
 
 		List<Student> expectedListStudentIsWeek8 = new ArrayList<Student>();
@@ -157,6 +169,7 @@ public class RollCallTest
 	@Test
 	public void List_GetStudentIsWeek7AndWeek8_ReturnList()
 	{
+		RollCall rollCall = new RollCall();
 		List<Student> listStudent = GetListStudentValid();
 
 		List<Student> expectedListStudentIsWeek7AndWeek8 = new ArrayList<Student>();
@@ -170,6 +183,7 @@ public class RollCallTest
 	@Test
 	public void List_GetStudentIsWeek7OrWeek8_ReturnList()
 	{
+		RollCall rollCall = new RollCall();
 		List<Student> listStudent = GetListStudentValid();
 
 		List<Student> expectedListStudentIsWeek7OrWeek8 = new ArrayList<Student>();
@@ -184,8 +198,10 @@ public class RollCallTest
 	}
 	
 	@Test
-	public void Random_GetRandomPresentationSequence_ReturnList()
+	public void Random_GetRandomPresentationSequence_ReturnList_RandomSeed()
 	{
+		IRandom random = new RandomSeed(1L);
+		RollCall rollCall = new RollCall(random);
 		List<Student> listStudent = GetListStudentValid();
 		
 		List<Student> expectedListStudentPresentSequence = new ArrayList<Student>();
@@ -195,7 +211,46 @@ public class RollCallTest
 		expectedListStudentPresentSequence.add(new Student(33333, 0, 1));
 		
 		List<Student> testListStudentPresentSequence = 
-				rollCall.GetRandomPresentationSequence(listStudent, new Random(1L));
+				rollCall.GetRandomPresentationSequence(listStudent, random);
+		
+		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
+	}
+	
+	@Test
+	public void Random_GetRandomPresentationSequence_ReturnList_RandomFactory()
+	{
+		IRandom random = new RandomSeed(1L);
+		RandomFactory.setRandom(random);
+		RollCall rollCall = new RollCall(random);
+		List<Student> listStudent = GetListStudentValid();
+		
+		List<Student> expectedListStudentPresentSequence = new ArrayList<Student>();
+		expectedListStudentPresentSequence.add(new Student(22222, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(27765, 1, 1));
+		expectedListStudentPresentSequence.add(new Student(44444, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(33333, 0, 1));
+		
+		List<Student> testListStudentPresentSequence = 
+				rollCall.GetRandomPresentationSequence(listStudent, random);
+		
+		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
+	}
+	
+	@Test
+	public void Random_GetRandomPresentationSequence_ReturnList_RandomOverride()
+	{
+		IRandom random = new RandomOverride(new RandomSeed(1L));
+		RollCall rollCall = new RollCall(random);
+		List<Student> listStudent = GetListStudentValid();
+		
+		List<Student> expectedListStudentPresentSequence = new ArrayList<Student>();
+		expectedListStudentPresentSequence.add(new Student(22222, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(27765, 1, 1));
+		expectedListStudentPresentSequence.add(new Student(44444, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(33333, 0, 1));
+		
+		List<Student> testListStudentPresentSequence = 
+				rollCall.GetRandomPresentationSequence(listStudent, random);
 		
 		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
 	}

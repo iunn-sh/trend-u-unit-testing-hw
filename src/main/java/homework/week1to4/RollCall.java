@@ -15,9 +15,20 @@ import org.apache.commons.lang3.StringUtils;
 
 public class RollCall 
 {
+	static IRandom random = null;
+	
+	public RollCall()
+	{
+	}
+	
+	public RollCall(IRandom random)
+	{
+		RollCall.random = random;
+	}
+	
 	public static void main(String[] args) 
 	{
-		RollCall rollCall = new RollCall();
+		RollCall rollCall = new RollCall(new RandomSeed(System.currentTimeMillis()));
 		List<Student> listStudent = rollCall.LoadCsvToStudent("src/main/resources/Week1HW_sample.csv");
 		
 		for (Student student : listStudent)
@@ -83,7 +94,7 @@ public class RollCall
 		
 		System.out.println(StringUtils.repeat("-", 60));
 		
-		Random random = new Random(System.currentTimeMillis());
+//		Random random = new Random(System.currentTimeMillis());
 		List<Student> listSequenceStudent = 
 				rollCall.GetRandomPresentationSequence(listStudent, random);
 		for (Student student : listSequenceStudent)
@@ -226,7 +237,7 @@ public class RollCall
 		return listStudentWeek7OrWeek8;
 	}
 	
-	public List<Student> GetRandomPresentationSequence(List<Student> listStudent, Random random)
+	public List<Student> GetRandomPresentationSequence(List<Student> listStudent, IRandom random)
 	{	
 		// get students showing up on week 7 or week 8
 		List<Student> listSequenceStudent = GetWeek7OrWeek8List(listStudent);
