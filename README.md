@@ -18,3 +18,9 @@ Trend University AD1006 UnitTesting Homework
 * random student presentation sequence
 * presenter on week 7 should not be on week 8 (each student present once)
 * test [random] output
+
+## Homework 3 Requirements
+
+* add 2 approach to create/test random output
+  * factory
+  * extract & override
