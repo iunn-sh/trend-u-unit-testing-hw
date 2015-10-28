@@ -24,3 +24,11 @@ Trend University AD1006 UnitTesting Homework
 * add 2 approach to create/test random output
   * factory
   * extract & override
+
+## Homework 4 Requirements
+
+* apply isolation framework for 4 DI aproaches
+  * constructor
+  * parameter (set property)
+  * factory
+  * extract & override
