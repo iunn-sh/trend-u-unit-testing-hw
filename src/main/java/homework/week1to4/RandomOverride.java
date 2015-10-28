@@ -1,7 +1,7 @@
 package homework.week1to4;
 
 
-public class RandomOverride extends RandomSeed
+public class RandomOverride extends RandomWrapper
 {
 	public IRandom random = null;
 	

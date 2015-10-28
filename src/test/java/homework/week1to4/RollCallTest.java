@@ -19,10 +19,7 @@ import org.junit.rules.ExpectedException;
 
 
 public class RollCallTest
-{
-//	IRandom random = new RandomSeed(1L);
-//	private RollCall rollCall = new RollCall();
-	
+{	
 	@Before
 	public void SetUp() throws Exception 
 	{
@@ -198,10 +195,10 @@ public class RollCallTest
 	}
 	
 	@Test
-	public void Random_GetRandomPresentationSequence_ReturnList_RandomSeed()
+	public void Random_GetRandomPresentationSequence_ReturnList_RandomConstructor()
 	{
-		IRandom random = new RandomSeed(1L);
-		RollCall rollCall = new RollCall(random);
+		IRandom fakeRandom = new RandomWrapper(1L);
+		RollCall rollCall = new RollCall(fakeRandom);
 		List<Student> listStudent = GetListStudentValid();
 		
 		List<Student> expectedListStudentPresentSequence = new ArrayList<Student>();
@@ -211,7 +208,27 @@ public class RollCallTest
 		expectedListStudentPresentSequence.add(new Student(33333, 0, 1));
 		
 		List<Student> testListStudentPresentSequence = 
-				rollCall.GetRandomPresentationSequence(listStudent, random);
+				rollCall.GetRandomPresentationSequence(listStudent);
+		
+		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
+	}
+	
+	@Test
+	public void Random_GetRandomPresentationSequence_ReturnList_RandomSetter()
+	{
+		IRandom fakeRandom = new RandomWrapper(1L);
+		RollCall rollCall = new RollCall();
+		rollCall.SetRandom(fakeRandom);
+		List<Student> listStudent = GetListStudentValid();
+		
+		List<Student> expectedListStudentPresentSequence = new ArrayList<Student>();
+		expectedListStudentPresentSequence.add(new Student(22222, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(27765, 1, 1));
+		expectedListStudentPresentSequence.add(new Student(44444, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(33333, 0, 1));
+		
+		List<Student> testListStudentPresentSequence = 
+				rollCall.GetRandomPresentationSequence(listStudent);
 		
 		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
 	}
@@ -219,9 +236,9 @@ public class RollCallTest
 	@Test
 	public void Random_GetRandomPresentationSequence_ReturnList_RandomFactory()
 	{
-		IRandom random = new RandomSeed(1L);
-		RandomFactory.setRandom(random);
-		RollCall rollCall = new RollCall(random);
+		IRandom fakeRandom = new RandomWrapper(1L);
+		RandomFactory.setRandom(fakeRandom);
+		RollCall rollCall = new RollCall(RandomFactory.create());
 		List<Student> listStudent = GetListStudentValid();
 		
 		List<Student> expectedListStudentPresentSequence = new ArrayList<Student>();
@@ -231,7 +248,7 @@ public class RollCallTest
 		expectedListStudentPresentSequence.add(new Student(33333, 0, 1));
 		
 		List<Student> testListStudentPresentSequence = 
-				rollCall.GetRandomPresentationSequence(listStudent, random);
+				rollCall.GetRandomPresentationSequence(listStudent);
 		
 		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
 	}
@@ -239,8 +256,8 @@ public class RollCallTest
 	@Test
 	public void Random_GetRandomPresentationSequence_ReturnList_RandomOverride()
 	{
-		IRandom random = new RandomOverride(new RandomSeed(1L));
-		RollCall rollCall = new RollCall(random);
+		IRandom fakeRandom = new RandomOverride(new RandomWrapper(1L));
+		RollCall rollCall = new RollCall(fakeRandom);
 		List<Student> listStudent = GetListStudentValid();
 		
 		List<Student> expectedListStudentPresentSequence = new ArrayList<Student>();
@@ -250,10 +267,14 @@ public class RollCallTest
 		expectedListStudentPresentSequence.add(new Student(33333, 0, 1));
 		
 		List<Student> testListStudentPresentSequence = 
-				rollCall.GetRandomPresentationSequence(listStudent, random);
+				rollCall.GetRandomPresentationSequence(listStudent);
 		
 		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
 	}
+	
+
+//	@Test
+//	public void Random_
 	
 	
 	public Student GetStudentValid()

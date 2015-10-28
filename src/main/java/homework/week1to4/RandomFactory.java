@@ -17,6 +17,6 @@ public class RandomFactory
 			return random;
 		}
 		
-		return new RandomSeed();
+		return new RandomWrapper();
 	}
 }

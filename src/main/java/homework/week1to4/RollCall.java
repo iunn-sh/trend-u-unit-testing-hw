@@ -15,7 +15,7 @@ import org.apache.commons.lang3.StringUtils;
 
 public class RollCall 
 {
-	static IRandom random = null;
+	private IRandom random = null;
 	
 	public RollCall()
 	{
@@ -23,12 +23,22 @@ public class RollCall
 	
 	public RollCall(IRandom random)
 	{
-		RollCall.random = random;
+		SetRandom(random);
+	}
+	
+	public void SetRandom (IRandom random)
+	{
+		this.random = random;
+	}
+	
+	public IRandom GetRandom ()
+	{
+		return this.random;
 	}
 	
 	public static void main(String[] args) 
 	{
-		RollCall rollCall = new RollCall(new RandomSeed(System.currentTimeMillis()));
+		RollCall rollCall = new RollCall(new RandomWrapper());
 		List<Student> listStudent = rollCall.LoadCsvToStudent("src/main/resources/Week1HW_sample.csv");
 		
 		for (Student student : listStudent)
@@ -96,7 +106,7 @@ public class RollCall
 		
 //		Random random = new Random(System.currentTimeMillis());
 		List<Student> listSequenceStudent = 
-				rollCall.GetRandomPresentationSequence(listStudent, random);
+				rollCall.GetRandomPresentationSequence(listStudent);
 		for (Student student : listSequenceStudent)
 		{
 			System.out.println("Student [id=" + student.getId() 
@@ -106,6 +116,7 @@ public class RollCall
 		}
 		System.out.println("Total Presenter: " + listSequenceStudent.size() + " people");
 	}
+	
 	
 	// http://www.mkyong.com/java/how-to-read-and-parse-csv-file-in-java/
 	public List<Student> LoadCsvToStudent (String filePath)
@@ -237,7 +248,7 @@ public class RollCall
 		return listStudentWeek7OrWeek8;
 	}
 	
-	public List<Student> GetRandomPresentationSequence(List<Student> listStudent, IRandom random)
+	public List<Student> GetRandomPresentationSequence(List<Student> listStudent)
 	{	
 		// get students showing up on week 7 or week 8
 		List<Student> listSequenceStudent = GetWeek7OrWeek8List(listStudent);
