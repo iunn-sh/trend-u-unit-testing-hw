@@ -2,6 +2,11 @@ package homework.week1to4;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.anyInt;
+
 import homework.week1to4.RollCall;
 import homework.week1to4.Student;
 
@@ -272,10 +277,90 @@ public class RollCallTest
 		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
 	}
 	
+	@Test
+	public void IsolationRandom_GetRandomPresentationSequence_ReturnList_RandomConstructor()
+	{
+		IRandom fakeRandom = mock(IRandom.class);
+		RollCall rollCall = new RollCall(fakeRandom);
+		List<Student> listStudent = GetListStudentValid();
+		
+		when(fakeRandom.nextInt(anyInt())).thenReturn(0);
+		
+		List<Student> expectedListStudentPresentSequence = new ArrayList<Student>();
+		expectedListStudentPresentSequence.add(new Student(27765, 1, 1));
+		expectedListStudentPresentSequence.add(new Student(22222, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(44444, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(33333, 0, 1));
+		
+		List<Student> testListStudentPresentSequence = 
+				rollCall.GetRandomPresentationSequence(listStudent);
 
-//	@Test
-//	public void Random_
+		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
+	}
 	
+	@Test
+	public void IsolationRandom_GetRandomPresentationSequence_ReturnList_RandomSetter()
+	{
+		IRandom fakeRandom = mock(IRandom.class);
+		RollCall rollCall = new RollCall();
+		rollCall.SetRandom(fakeRandom);
+		List<Student> listStudent = GetListStudentValid();
+		
+		when(fakeRandom.nextInt(anyInt())).thenReturn(0);
+		
+		List<Student> expectedListStudentPresentSequence = new ArrayList<Student>();
+		expectedListStudentPresentSequence.add(new Student(27765, 1, 1));
+		expectedListStudentPresentSequence.add(new Student(22222, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(44444, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(33333, 0, 1));
+		
+		List<Student> testListStudentPresentSequence = 
+				rollCall.GetRandomPresentationSequence(listStudent);
+		
+		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
+	}
+	
+	public void IsolationRandom_GetRandomPresentationSequence_ReturnList_RandomFactory()
+	{
+		IRandom fakeRandom = mock(IRandom.class);
+		RandomFactory.setRandom(fakeRandom);
+		RollCall rollCall = new RollCall(RandomFactory.create());
+		List<Student> listStudent = GetListStudentValid();
+		
+		when(fakeRandom.nextInt(anyInt())).thenReturn(0);
+		
+		List<Student> expectedListStudentPresentSequence = new ArrayList<Student>();
+		expectedListStudentPresentSequence.add(new Student(27765, 1, 1));
+		expectedListStudentPresentSequence.add(new Student(22222, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(44444, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(33333, 0, 1));
+		
+		List<Student> testListStudentPresentSequence = 
+				rollCall.GetRandomPresentationSequence(listStudent);
+		
+		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
+	}
+	
+	@Test
+	public void IsolationRandom_GetRandomPresentationSequence_ReturnList_RandomOverride()
+	{
+		IRandom fakeRandom = mock(IRandom.class);
+		RollCall rollCall = new RollCall(fakeRandom);
+		List<Student> listStudent = GetListStudentValid();
+		
+		when(fakeRandom.nextInt(anyInt())).thenReturn(0);
+		
+		List<Student> expectedListStudentPresentSequence = new ArrayList<Student>();
+		expectedListStudentPresentSequence.add(new Student(27765, 1, 1));
+		expectedListStudentPresentSequence.add(new Student(22222, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(44444, 1, 0));
+		expectedListStudentPresentSequence.add(new Student(33333, 0, 1));
+		
+		List<Student> testListStudentPresentSequence = 
+				rollCall.GetRandomPresentationSequence(listStudent);
+		
+		assertEquals(expectedListStudentPresentSequence, testListStudentPresentSequence);
+	}
 	
 	public Student GetStudentValid()
 	{
