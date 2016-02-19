@@ -5,6 +5,11 @@
 	<artifactId>AD1006_UnitTesting</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
+	<!-- PROJECT PROPERTIES -->
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
 	<dependencies>
 		<!-- Test -->
 		<dependency>
@@ -137,7 +142,7 @@
 					</execution>
 				</executions>
 			</plugin>
-			<!--  INTEGRATION TEST RUNNER -->
+			<!-- INTEGRATION TEST RUNNER -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-report-plugin</artifactId>
