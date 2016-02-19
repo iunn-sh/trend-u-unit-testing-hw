@@ -1,6 +1,7 @@
 # Unit Testing Homework 
 
 [![Build Status](https://travis-ci.org/jbytw/UnitTestingHW.svg?branch=master)](https://travis-ci.org/jbytw/UnitTestingHW)
+[![Coverage Status](https://coveralls.io/repos/github/jbytw/UnitTestingHW/badge.svg?branch=master)](https://coveralls.io/github/jbytw/UnitTestingHW?branch=master)
 
 Trend University AD1006 UnitTesting Homework
 
