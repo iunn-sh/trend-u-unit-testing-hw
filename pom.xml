@@ -88,37 +88,17 @@
 		<!-- BUILD PLUGINS -->
 		<plugins>
 			<plugin>
-				<!-- CODE COVERAGE -->
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.7.4.201502262128 </version>
+				<version>0.7.5.201505241946</version>
 				<executions>
-					<!-- Prepare execution with Surefire -->
 					<execution>
-						<id>pre-unit-test</id>
+						<id>prepare-agent</id>
 						<goals>
 							<goal>prepare-agent</goal>
 						</goals>
-						<configuration>
-							<propertyName>surefireArgLine</propertyName>
-						</configuration>
-					</execution>
-					<!-- Generate report after tests are run -->
-					<execution>
-						<id>post-unit-test</id>
-						<phase>test</phase>
-						<goals>
-							<goal>report</goal>
-						</goals>
 					</execution>
 				</executions>
-				<!-- Specify classes to ignore in code coverage -->
-				<configuration>
-					<excludes>
-						<exclude>**/ui/**</exclude>
-						<exclude>**/StartSolverUi**</exclude>
-					</excludes>
-				</configuration>
 			</plugin>
 			<plugin>
 				<!-- UNIT TEST RUNNER -->
