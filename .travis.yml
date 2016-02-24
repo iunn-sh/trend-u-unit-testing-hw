@@ -1,6 +1,9 @@
 language: java
-script: mvn test
-after_success:
-  - mvn clean test jacoco:report coveralls:report
 jdk:
   - oraclejdk8
+script: mvn test
+before_install:
+  - pip install --user codecov
+after_success:
+  - codecov
+
