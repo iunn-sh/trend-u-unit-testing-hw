@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.org/jbytw/UnitTestingHW.svg?branch=master)](https://travis-ci.org/jbytw/UnitTestingHW)
 [![Codacy Badge](https://api.codacy.com/project/badge/grade/a8e3a066aa3c475f9928466c4d37d653)](https://www.codacy.com/app/bepotw/UnitTestingHW)
 [![codecov.io](https://codecov.io/github/jbytw/UnitTestingHW/coverage.svg?branch=master)](https://codecov.io/github/jbytw/UnitTestingHW?branch=master)
+[![Maintainability](https://api.codeclimate.com/v1/badges/f83724f2adbb6c0357f6/maintainability)](https://codeclimate.com/github/jbytw/UnitTestingHW/maintainability)
 
 Trend University AD1006 UnitTesting Homework
 
